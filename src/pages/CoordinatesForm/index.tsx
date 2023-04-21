@@ -1,15 +1,14 @@
 import { SplashScreen } from "../../components/Splash";
 import { Container, ContainerForm, FormStyled, InputWrapperStyled, Ornaments } from "./coordinates.styled";
-import illustration from '../../assets/svgs/illustrations/robotSun.svg'
-import decal from '../../assets/svgs/decal/balls.svg'
-import { MapPinLine } from "@phosphor-icons/react";
+import { MapPinLine, Lightning } from "@phosphor-icons/react";
 import { colors } from "../../styles/variables";
-import Lightning from "@phosphor-icons/react/dist/icons/Lightning";
 import { Button } from "../../components/Button";
 import { Logo } from "../../components/Logo";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GetLocation } from "../../constants/getLocation";
 import { Loading } from "../../components/Loading";
+import illustration from '../../assets/svgs/illustrations/robotSun.svg'
+import decal from '../../assets/svgs/decal/balls.svg'
 
 export function CoordinatesForm() {
   const [isLoading, setIsLoading] = useState(false)
@@ -21,52 +20,47 @@ export function CoordinatesForm() {
 
 
   const isDisable = () => {
-    if(values.cons && values.lat && values.long !== '' ){
+    if (values.cons && values.lat && values.long !== '') {
       return false;
     } else {
       return true
     }
   }
 
-  function handleSetValues(key:string, value:string) {
+  function handleSetValues(key: string, value: string) {
     setValues({
       ...values,
       [key]: value
     })
   }
-  
+
   function handleSetCoordinates() {
     setIsLoading(true)
     const coord = GetLocation()
-      coord.then(val => {
-        setValues({
-          ...values,
-          lat: val.lat.toString(),
-          long: val.long.toString(),
-        })
-        console.log('entro no then >>>')
-        console.log(val)
-        setIsLoading(false)
-      }).catch((err) => {
-        setIsLoading(false)
-        console.error(err)
+    coord.then(val => {
+      setValues({
+        ...values,
+        lat: val.lat.toString(),
+        long: val.long.toString(),
       })
+      setIsLoading(false)
+    }).catch((err) => {
+      setIsLoading(false)
+      console.error(err)
+    })
   }
-
-
-  // useEffect(() => {console.log(values)}, [values])
 
   return (
     <>
       <SplashScreen />
-      <Loading show={isLoading} variant={"02"}/>
+      <Loading show={isLoading} variant={"02"} />
       <Container>
         <Ornaments>
           <img className="illustration" src={illustration} />
           <img className="decal" src={decal} />
         </Ornaments>
         <ContainerForm>
-        <Logo />
+          <Logo />
           <FormStyled action="home">
             <h2>Preencha os dados</h2>
             <div className="inputs">
