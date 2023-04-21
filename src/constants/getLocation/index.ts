@@ -32,7 +32,7 @@ export async function GetLocation() {
   if(coords.lat && coords.long){
     return Promise.resolve(coords)
   } else {
-    return Promise.reject(coords);
+    return Promise.reject('erro ao obter coordenadas');
   }
 }
 

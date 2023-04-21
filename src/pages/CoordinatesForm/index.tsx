@@ -44,12 +44,17 @@ export function CoordinatesForm() {
           lat: val.lat.toString(),
           long: val.long.toString(),
         })
+        console.log('entro no then >>>')
+        console.log(val)
         setIsLoading(false)
+      }).catch((err) => {
+        setIsLoading(false)
+        console.error(err)
       })
   }
 
 
-  useEffect(() => {console.log(values)}, [values])
+  // useEffect(() => {console.log(values)}, [values])
 
   return (
     <>
