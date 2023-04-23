@@ -22,5 +22,9 @@ export const colors = {
   gray6: '#C4C4CC',
   gray7: '#E1E1E6',
 
-  white: '#FFFF'
+  white: '#FFFF',
+  
+  chart1: '#d9d9d9',
+  chart2: '#343338',
+
 } as const
