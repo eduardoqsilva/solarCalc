@@ -112,7 +112,7 @@ class OpenMeteo {
   async addMedia() {
     for (const mes of OpenMeteo.meses) {
       const startDate = `2022-${String(mes.numero).padStart(2, "0")}-01`;
-      const endDate = `2022-${String(mes.numero).padStart(2, "0")}-${mes.dias}`;
+      const endDate = `2022-${String(mes.numero).padStart(2, "0")}-${String(mes.dias).padStart(2, "0")}`;
       const climate = await this.getClimate(startDate, endDate, "America/Sao_Paulo");
 
       const temperatures = climate.temperature_2m;
