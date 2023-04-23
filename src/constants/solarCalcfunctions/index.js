@@ -12,8 +12,7 @@ const totalInfo = {};
 async function getData(latitude, longitude, consumo) {
     const openMeteo = new OpenMeteo(latitude, longitude);
     try {
-        await openMeteo.addMediaIrradiacao();
-        await openMeteo.addMediaTemperatura();
+        await openMeteo.getClimate();
 
 
         const mediaIrradiacaoAnual = OpenMeteo.meses.reduce((total, mes) => {
@@ -81,7 +80,7 @@ async function getData(latitude, longitude, consumo) {
 
 export default getData;
 
-getData(-22, -43, 1000);
+getData(-17, -50, 450);
 
 // Para cada 1 kWh  = 0.295 co² 
 //  1kWh = 0.00029499999999999996  = TON co² === 0.002107631045605 Arvores
