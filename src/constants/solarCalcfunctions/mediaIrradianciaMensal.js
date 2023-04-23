@@ -93,14 +93,15 @@ class OpenMeteo {
     this.latitude = Number(latitude);
     this.longitude = Number(longitude);
   }
-  async getTemperature(startDate, endDate, timezone) {
+
+  async getClimate(startDate, endDate, timezone) {
     try {
       const response = await fetch(
-        `https://archive-api.open-meteo.com/v1/archive?latitude=${this.latitude}&longitude=${this.longitude}&start_date=${startDate}&end_date=${endDate}&hourly=temperature_2m&timezone=${timezone}`
+        `https://archive-api.open-meteo.com/v1/archive?latitude=${this.latitude}&longitude=${this.longitude}&start_date=${startDate}&end_date=${endDate}&hourly=temperature_2m,shortwave_radiation&timezone=${timezone}`
       );
       const data = await response.json();
-      const temperatures = data.hourly.temperature_2m;
-      return temperatures;
+      const climate = data.hourly;
+      return climate;
     } catch (error) {
       console.error(error);
       console.log("Algum erro ocorreu.");
@@ -108,53 +109,23 @@ class OpenMeteo {
     }
   }
 
-  async addMediaTemperatura() {
+  async addMedia() {
     for (const mes of OpenMeteo.meses) {
       const startDate = `2022-${String(mes.numero).padStart(2, "0")}-01`;
       const endDate = `2022-${String(mes.numero).padStart(2, "0")}-${mes.dias}`;
-      const temperatures = await this.getTemperature(
-        startDate,
-        endDate,
-        "America/Sao_Paulo"
-      );
+      const climate = await this.getClimate(startDate, endDate, "America/Sao_Paulo");
+
+      const temperatures = climate.temperature_2m;
+      const ghi = climate.shortwave_radiation;
+
       const length = temperatures.length;
+      const somaTemperatura = temperatures.reduce((acc, cur) => acc + cur, 0);
+      const mediaTemperatura = somaTemperatura / length;
+      mes.mediaTemperatura = mediaTemperatura.toFixed(2);
 
-      const soma = temperatures.reduce((acc, cur) => acc + cur, 0);
-      const media = soma / length;
-      mes.mediaTemperatura = media.toFixed(2);
-    }
-  }
-
-  
-
-  async globalHorizontalIrradiation(startDate, endDate, timezone) {
-    try {
-      const response = await fetch(
-        `https://archive-api.open-meteo.com/v1/archive?latitude=${this.latitude}&longitude=${this.longitude}&start_date=${startDate}&end_date=${endDate}&hourly=shortwave_radiation&timezone=${timezone}`
-      );
-      const data = await response.json();
-      const ghi = data.hourly.shortwave_radiation;
-      return ghi;
-    } catch (error) {
-      console.error(error);
-      console.log("Algum erro ocorreu.");
-      return null;
-    }
-  }
-
-  async addMediaIrradiacao() {
-    for (const mes of OpenMeteo.meses) {
-      const startDate = `2022-${String(mes.numero).padStart(2, "0")}-01`;
-      const endDate = `2022-${String(mes.numero).padStart(2, "0")}-${mes.dias}`;
-      const ghi = await this.globalHorizontalIrradiation(
-        startDate,
-        endDate,
-        "America/Sao_Paulo"
-      );
-
-      const soma = ghi.reduce((acc, cur) => acc + cur, 0);
-      const media = soma / mes.dias;
-      mes.mediaIrradiacao = media.toFixed(2);
+      const somaIrradiacao = ghi.reduce((acc, cur) => acc + cur, 0);
+      const mediaIrradiacao = somaIrradiacao / mes.dias;
+      mes.mediaIrradiacao = mediaIrradiacao.toFixed(2);
     }
   }
 }
