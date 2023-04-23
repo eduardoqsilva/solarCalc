@@ -61,7 +61,7 @@ export function CoordinatesForm() {
         </Ornaments>
         <ContainerForm>
           <Logo />
-          <FormStyled action="home">
+          <FormStyled action="home" onSubmit={(e) => e.preventDefault()}>
             <h2>Preencha os dados</h2>
             <div className="inputs">
               <InputWrapperStyled>
