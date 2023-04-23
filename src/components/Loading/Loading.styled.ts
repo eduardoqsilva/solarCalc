@@ -45,7 +45,7 @@ export const WrapperLoading = styled.div<LoadingType>`
   justify-content: center;
 
   background-color: ${(props) => props.variant === '01' 
-    ? 'rgba(0,0,0,0.9)' 
+    ? 'rgba(0,0,0,0.97)' 
     : 'transparent'
   };
 `
