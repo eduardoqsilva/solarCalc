@@ -60,6 +60,7 @@ async function getData(latitude, longitude, consumo) {
         totalInfo.co2 = energiaTotal*0.295;
         totalInfo.arvores = Math.floor((totalInfo.co2/1000 ) * 7.14451202);
         totalInfo.dadosMes = OpenMeteo.meses;
+        totalInfo.areaInstalacao = qtd*painel.areaInstalacao;
         //console.log(totalInfo)
               
         return totalInfo;
