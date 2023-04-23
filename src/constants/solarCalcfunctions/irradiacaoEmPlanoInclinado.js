@@ -19,7 +19,7 @@ function irradianceInclinedPlane(latitude, longitude, tiltAngle, orientation, mo
     const beta = Math.abs(tiltRad - altSolRad);
     const cosTheta = Math.sin(latRad) * Math.sin(decSol) * Math.cos(beta) + Math.sin(latRad) * Math.cos(decSol) * Math.sin(beta) * Math.cos(oriRad) + Math.cos(latRad) * Math.cos(decSol) * Math.cos(hsolarRad - oriRad) * Math.cos(beta) + Math.cos(latRad) * Math.sin(decSol) * Math.sin(beta) * Math.cos(oriRad) * Math.cos(hsolarRad - oriRad) - Math.cos(latRad) * Math.sin(beta) * Math.sin(oriRad) * Math.sin(hsolarRad - oriRad);
     const irradiance = g0 * cosTheta;
-
+    
     return irradiance;
 }
 
