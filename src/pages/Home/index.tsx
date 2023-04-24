@@ -49,6 +49,14 @@ export function Home() {
       }
     }
   }
+  const PotF = () => {
+    if(data) {
+      if(typeof data.potSistema === 'number') {
+        const num = Number(data.co2)
+        return (num / 1000).toFixed(2)
+      }
+    }
+  }
 
   useEffect(() => {
     setIsLoading(true)
@@ -79,7 +87,7 @@ export function Home() {
               <Card
                 title={'Potência do total sistema'}
                 icon={<Lightning/>}
-                value={[`${data ? data?.potSistema : ''}`, 'kW']}
+                value={[`${PotF()}`, 'kW']}
               />
                <Card
                 title={'Geração anual'}
