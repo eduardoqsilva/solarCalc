@@ -95,6 +95,7 @@ class OpenMeteo {
   }
 
   async getClimate(startDate, endDate, timezone) {
+    
     try {
       const response = await fetch(
         `https://archive-api.open-meteo.com/v1/archive?latitude=${this.latitude}&longitude=${this.longitude}&start_date=${startDate}&end_date=${endDate}&hourly=temperature_2m,shortwave_radiation&timezone=${timezone}`

@@ -69,7 +69,7 @@ async function getData(latitude, longitude, consumo) {
         totalInfo.arvores = Math.floor((totalInfo.co2/1000 ) * 7.14451202);
         //totalInfo.dadosMes = OpenMeteo.meses;
         totalInfo.areaInstalacao = (qtd*painel.areaInstalacao).toFixed(2);
-        console.log(totalInfo)
+        // console.log(totalInfo)
               
         return totalInfo;
     } catch (error) {
@@ -80,7 +80,6 @@ async function getData(latitude, longitude, consumo) {
 
 export default getData;
 
-//getData(-17, -50, 5000);
 
 // Para cada 1 kWh  = 0.295 co² 
 //  1kWh = 0.00029499999999999996  = TON co² === 0.002107631045605 Arvores

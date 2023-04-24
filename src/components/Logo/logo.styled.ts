@@ -7,6 +7,7 @@ export const LogoStyled = styled.div`
   width: 161px;
   height: 45px;
   display: block;
+  z-index: 2;
 
   @media (max-width: 800px) {
     left: 50%;

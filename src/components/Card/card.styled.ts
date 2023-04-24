@@ -4,8 +4,9 @@ import { colors } from "../../styles/variables";
 
 export const CardWapperStyled = styled.div`
   width: 100%;
-  height: 9rem;
-  max-width: 18.75rem;
+  height: 100%;
+  min-height: 8.1875rem;
+  min-width: 18.75rem;
   
   border-radius: 8px;
   padding: 1rem;

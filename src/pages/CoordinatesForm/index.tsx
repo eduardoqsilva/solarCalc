@@ -4,11 +4,12 @@ import { MapPinLine, Lightning } from "@phosphor-icons/react";
 import { colors } from "../../styles/variables";
 import { Button } from "../../components/Button";
 import { Logo } from "../../components/Logo";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { GetLocation } from "../../constants/getLocation";
 import { Loading } from "../../components/Loading";
 import illustration from '../../assets/svgs/illustrations/robotSun.svg'
 import decal from '../../assets/svgs/decal/balls.svg'
+import { useNavigate } from "react-router-dom";
 
 export function CoordinatesForm() {
   const [isLoading, setIsLoading] = useState(false)
@@ -17,7 +18,7 @@ export function CoordinatesForm() {
     long: '',
     cons: ''
   })
-
+  const navigate = useNavigate()
 
   const isDisable = () => {
     if (values.cons && values.lat && values.long !== '') {
@@ -49,6 +50,10 @@ export function CoordinatesForm() {
       console.error(err)
     })
   }
+  function handleSubmit(e:FormEvent) {
+    e.preventDefault()
+    navigate(`/home/${values.lat}/${values.long}/${values.cons}`)
+  }
 
   return (
     <>
@@ -61,7 +66,7 @@ export function CoordinatesForm() {
         </Ornaments>
         <ContainerForm>
           <Logo />
-          <FormStyled action="home" onSubmit={(e) => e.preventDefault()}>
+          <FormStyled onSubmit={handleSubmit}>
             <h2>Preencha os dados</h2>
             <div className="inputs">
               <InputWrapperStyled>
