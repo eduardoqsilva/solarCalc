@@ -1,5 +1,7 @@
 export async function GetLocation() {
   const coords = {lat: '', long: ''}
+  let denied = false
+  let tent = 0
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition, showError);
@@ -16,6 +18,7 @@ export async function GetLocation() {
     switch(error.code) {
       case error.PERMISSION_DENIED:
         window.alert("User denied the request for Geolocation.")
+        denied = true
         break;
       case error.POSITION_UNAVAILABLE:
         window.alert("Location information is unavailable.")
@@ -28,7 +31,21 @@ export async function GetLocation() {
         break;
     }
   }
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  
+  await new Promise<void>((resolve) => {
+    const interval = setInterval(() => {
+      tent += 1
+      if (coords.lat !== '' && coords.long !== '') {
+        clearInterval(interval);
+        resolve()
+      } 
+      if (denied || tent >= 5) {
+        resolve()
+        clearInterval(interval);
+      }
+    }, 1000)
+  });
+
   if(coords.lat && coords.long){
     return Promise.resolve(coords)
   } else {
