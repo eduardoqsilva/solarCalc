@@ -153,7 +153,7 @@ export function LineChart({ dat, labels, title, dataLegend }: LineType) {
         },
         ticks: {
           color: colors.chart1,
-          stepSize: 350,
+          stepSize: 2000,
           // callback: (value) => value + ' C°'
         },
       },
