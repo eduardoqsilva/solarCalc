@@ -63,10 +63,6 @@ export function Home() {
     })
   }, [ lat, long, cons ])
 
-  useEffect(() => {
-    console.log(data)
-  }, [data])
-
   return (
     <>
       <Logo />
