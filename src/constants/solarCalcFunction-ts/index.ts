@@ -64,12 +64,12 @@ async function getData(latitude: number, longitude: number, consumo: number) {
         const energiaGerada = painel.calculoEnergiaGeradaMensal(30,mediaIrradiacaoAnual/ 1000, 0.98, Number(potSaidaInversor));
 
 
-        totalInfo.mediaIrradiacaoAnual = Math.round(mediaIrradiacaoAnual/1000);
+        totalInfo.mediaIrradiacaoAnual = Math.round(mediaIrradiacaoAnual);
         totalInfo.mediaPotCorrigida = Math.ceil(potCorrigida);
-        totalInfo.mediaTemperaturaAnual = Math.round(mediaTemperaturaAnual);
+        totalInfo.mediaTemperaturaAnual = Number(mediaTemperaturaAnual.toFixed(1));
         const qtd = Math.ceil(consumo / energiaGerada);
         totalInfo.qtdModulos = qtd;
-        totalInfo.potSistema = (qtd * painel.potPico)/1000;
+        totalInfo.potSistema = Number(((qtd * painel.potPico)/1000).toFixed(2));
 
         const energiaGeradaMes = [];
         const mediaIrradiacao = [];
@@ -83,7 +83,7 @@ async function getData(latitude: number, longitude: number, consumo: number) {
             mediaIrradiacao.push(mes.mediaIrradiacao !== undefined ? mes.mediaIrradiacao : 0);
             mediaTemp.push(mes.mediaTemperatura !== undefined ? mes.mediaTemperatura : 0);
             meses.push(mes.nome);
-            const potCorrigida = painel.calcularPotenciaCorrigida(Number(mes.mediaTemperatura));
+            const potCorrigida = painel.calcularPotenciaCorrigida(mes.mediaTemperatura !== undefined ? mes.mediaTemperatura : 0);
             const potSaidaInversor = painel.calculaPotSaidaInversor(potCorrigida, rendimentoInversor, qtd);
 
             const energiaGerada = painel.calculoEnergiaGeradaMensal(mes.dias, mes.mediaIrradiacao !== undefined ? mes.mediaIrradiacao : 0 / 1000, 0.98, potSaidaInversor);
@@ -97,10 +97,10 @@ async function getData(latitude: number, longitude: number, consumo: number) {
         const energiaTotal = totalInfo.energiaGeradaArray.dados.reduce((total, mes) => total + mes, 0);
         
         totalInfo.energiaTotal = Math.round(energiaTotal);
-        totalInfo.TONco2 = Math.round((energiaTotal * 0.295)/1000);
+        totalInfo.TONco2 = Number(((energiaTotal * 0.295)/1000).toFixed(1));
         totalInfo.arvores = Math.round((totalInfo.TONco2) * 7.14451202);
         
-        totalInfo.areaInstalacao = Math.round((qtd * painel.areaInstalacao));
+        totalInfo.areaInstalacao = Number((qtd * painel.areaInstalacao).toFixed(1));
         
 
         return totalInfo;
