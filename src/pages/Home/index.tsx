@@ -87,7 +87,7 @@ export function Home() {
               <Card
                 title={'Potência do total sistema'}
                 icon={<Lightning/>}
-                value={[`${PotF()}`, 'kW']}
+                value={[`${PotF()}`, 'kWp']}
               />
                <Card
                 title={'Geração anual'}
