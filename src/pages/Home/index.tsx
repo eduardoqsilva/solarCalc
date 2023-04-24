@@ -10,6 +10,7 @@ import getData from "../../constants/solarCalcfunctions";
 
 import up from '../../assets/svgs/decal/up.svg'
 import down from '../../assets/svgs/decal/down.svg'
+import { ShareButton } from "../../components/Share";
 
 interface dataType {
   mediaIrradiacaoAnual: string,
@@ -73,6 +74,7 @@ export function Home() {
         <img src={up} className="up" />
         <img src={down}className="down" />
       </OrnamentsStyled>
+      <ShareButton />
       <Loading show={isLoading} variant={"01"}/>
       <ContainerStyled>
         <ContentContainer>
