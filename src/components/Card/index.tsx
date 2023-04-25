@@ -16,18 +16,20 @@ export function Card({title, icon, value, tip}:CardType) {
   const [legendTip, setLegendTip] = useState(false)
 
   function handleTip() { 
-    if(screen.width <= 800) {
+    if(window.innerWidth <= 800) {
       setLegendTip(true)
+      console.log('passou')
     }
   }
 
   function onHover() {
-    if(screen.width <= 800) {
+    if(window.innerWidth > 800) {
       setLegendTip(true)
+      console.log('passou')
     }
   }
   function onOut() {
-    if(screen.width <= 800) {
+    if(window.innerWidth > 800) {
       setLegendTip(false)
     }
   }
