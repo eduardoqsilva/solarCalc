@@ -18,65 +18,23 @@ export const CardWapperStyled = styled.div`
   align-items: center;
   justify-content: flex-start;
   gap: 1.5rem;
+  position: relative;
 `
 
-interface TitleStyledType{
-  tip: string
-  show: boolean
-}
-export const TitleStyled = styled.h2<TitleStyledType>`
-  font-weight: 600;
-  font-size: 1rem;
-  color: ${colors.gray7};
+
+export const TitleStyled = styled.div`
   width: 100%;
   text-align: left;
-  justify-self: self-start;
-
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.3rem;
-
-  & svg {
+  & span {
     cursor: pointer;
-  }
-  & .tip {
-    position: relative;
-    &::after {
-      content: '${(props) => props.tip}';
-      
-      position: absolute;
-      right: -10px;
-      top: 30px;
-      z-index: 10;
+    font-weight: 600;
+    font-size: 1rem;
+    color: ${colors.gray7};
 
-      font-family: ${fonts.secundary};
-      font-size: 0.8rem;
-     
-      background-color: ${colors.gray3};
-      min-width: 250px;
-      /* min-height: 50px; */
-      padding: 0.5rem;
-      border-radius: 8px;
-
-      ${(props) => props.show ? ''
-        : 'display: none;'  
-      }
-    }
-    &::before {
-      content: '';
-      border-style: solid;
-      border-width: 8px;
-      border-color: transparent transparent ${colors.gray3} transparent;
-      
-      position: absolute;
-      top: 15px;
-      left: -1px;
-      z-index: 11;
-
-      ${(props) => props.show ? ''
-        : 'display: none;'  
-      }
+    @media (max-width: 800px) {
+      user-select: none;
+      -webkit-user-select: none; //iphone
+      -ms-user-select: none; //IE 10 IE 11
     }
   }
 `
@@ -99,5 +57,45 @@ export const TextStyled = styled.span `
     position: relative;
     top: -8px;
     left: 2px;
+  }
+`
+interface TipType {
+  show: boolean
+}
+export const Tip = styled.div<TipType>`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+    transform: translateX(-50%) translateY(-20%);
+
+    font-family: ${fonts.secundary};
+    font-size: 0.8rem;
+    font-weight: 600;
+  
+    background-color: ${colors.gray3};
+    min-width: 250px;
+    /* min-height: 50px; */
+    padding: 0.5rem;
+    border-radius: 8px;
+
+    ${(props) => props.show ? ''
+      : 'display: none;'  
+    }
+
+  &::before {
+    content: '';
+    border-style: solid;
+    border-width: 8px;
+    border-color: transparent transparent ${colors.gray3} transparent;
+    
+    position: absolute;
+    top: -15px;
+    left: 20%;
+    z-index: 11;
+
+    ${(props) => props.show ? ''
+      : 'display: none;'  
+    }
   }
 `

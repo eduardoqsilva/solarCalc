@@ -1,7 +1,7 @@
-import { IconContext, IconProps, WarningCircle } from "@phosphor-icons/react";import { useEffect, useState } from "react";
+import { IconContext, IconProps, WarningCircle } from "@phosphor-icons/react";import { MouseEventHandler, useEffect, useState } from "react";
 ;
 import { colors } from "../../styles/variables";
-import { CardWapperStyled, ContentContainer, TextStyled, TitleStyled } from "./card.styled";
+import { CardWapperStyled, ContentContainer, TextStyled, Tip, TitleStyled } from "./card.styled";
 
 
 interface CardType {
@@ -15,33 +15,44 @@ export function Card({title, icon, value, tip}:CardType) {
 
   const [legendTip, setLegendTip] = useState(false)
 
-  function handleTip() {
-    setLegendTip(prev => !prev) 
+  function handleTip() { 
+    if(screen.width <= 800) {
+      setLegendTip(true)
+    }
+  }
+
+  function onHover() {
+    if(screen.width <= 800) {
+      setLegendTip(true)
+    }
+  }
+  function onOut() {
+    if(screen.width <= 800) {
+      setLegendTip(false)
+    }
   }
 
   useEffect(() => {
-    const interval = setTimeout(() => {
-      setLegendTip(false)
-    }, 3000)
-
-    if(!legendTip) {
-      clearInterval(interval)
+    let intervalId:any = null;
+    if (legendTip) {
+      intervalId = setInterval(() => {
+        setLegendTip(false);
+      }, 3000);
     }
-  },[legendTip])
+    return () => clearInterval(intervalId);
+  }, [legendTip]);
 
   
   return(
     <CardWapperStyled>
-      <TitleStyled tip={tip} show={legendTip}>
-        {title} 
-        <div className="tip">
-          <WarningCircle
-            width={15}
-            weight={"bold"}
-            color={colors.gray7}
-            onClick={handleTip}
-          />
-        </div>
+      <TitleStyled>
+        <span 
+          onMouseOver={onHover}
+          onMouseOut={onOut}
+          onClick={handleTip}
+        >
+          {title}
+        </span>  
       </TitleStyled>
       <ContentContainer>
         <IconContext.Provider 
@@ -56,6 +67,9 @@ export function Card({title, icon, value, tip}:CardType) {
         </IconContext.Provider>
         <TextStyled>{value[0]}<sup>{value[1]}</sup></TextStyled>
       </ContentContainer>
+      <Tip show={legendTip}>
+        {tip}
+      </Tip>
     </CardWapperStyled>
   )
 }
