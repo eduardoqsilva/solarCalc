@@ -18,5 +18,8 @@ export const GlobalStyled = createGlobalStyle`
 
   button {
     cursor: pointer;
+    &:focus {
+      -webkit-tap-highlight-color: transparent;
+    }
   }
 `
