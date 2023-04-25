@@ -52,7 +52,7 @@ export function Home() {
   const PotF = () => {
     if(data) {
       if(typeof data.potSistema === 'number') {
-        const num = Number(data.co2)
+        const num = Number(data.potSistema)
         return (num / 1000).toFixed(2)
       }
     }
@@ -88,31 +88,37 @@ export function Home() {
                 title={'Potência do total sistema'}
                 icon={<Lightning/>}
                 value={[`${PotF()}`, 'kWp']}
+                tip={'Base para dimensionar o seu sistema solar.'}
               />
                <Card
                 title={'Geração anual'}
                 icon={<LightbulbFilament/>}
                 value={[`${data ? data?.energiaTotal : ''}`, 'kWh']}
+                tip={'Total de energia produzida em um ano.'}
               />
                <Card
                 title={'Área de instalação'}
                 icon={<BoundingBox/>}
                 value={[`${data ? data?.areaInstalacao : ''}`, 'm²']}
+                tip={'Área total em m² ocupada pelo sistema.'}
               />
                <Card
                 title={'Média irradiação anual'}
                 icon={<SunDim/>}
                 value={[`${data ? data?.mediaIrradiacaoAnual : ''}`, 'W/m²']}
+                tip={'Media anual da radiação global no local.'}
               />
                <Card
                 title={'Temperatura média anual'}
                 icon={<Thermometer/>}
                 value={[`${data ? data?.mediaTemperaturaAnual : ''}`, 'C°']}
+                tip={'Base para calcular o desempenho dos Modulos solares.'}
               />
                <Card
                 title={'Redução de CO2'}
                 icon={<PottedPlant/>}
                 value={[`${co2F()}`, 'TON']}
+                tip={'Redução em toneladas de CO² equivalente a energia produzida.'}
               />
             </CardsGrid>
             <BarChart 
