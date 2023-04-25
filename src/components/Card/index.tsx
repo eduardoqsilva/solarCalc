@@ -1,4 +1,5 @@
-import { IconContext, IconProps, WarningCircle } from "@phosphor-icons/react";import { MouseEventHandler, useEffect, useState } from "react";
+import { IconContext, IconProps } from "@phosphor-icons/react";
+import { useEffect, useState } from "react";
 ;
 import { colors } from "../../styles/variables";
 import { CardWapperStyled, ContentContainer, TextStyled, Tip, TitleStyled } from "./card.styled";
