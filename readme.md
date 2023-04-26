@@ -41,6 +41,11 @@ Inicie o servidor
   npm run dev
 ```
 
+## Dimensionamento de Sistemas Fotovoltaicos API
+
+Projeto da API pode ser acessado por esse [link](https://github.com/FabriNeves/solarCalc)
+
+A API desenvolvida é uma calculadora solar que fornece informações sobre a geração de energia fotovoltaica de um determinado local com base em dados meteorológicos e características dos equipamentos utilizados. Com ela, é possível obter estimativas de consumo, quantidade de painéis fotovoltaicos necessários, energia gerada, potência do sistema, média de irradiância e temperatura anual, além de informações sobre a emissão de CO2 e quantidade de árvores necessárias para compensar essa emissão. Usando informações da API [OpenMeteo](https://open-meteo.com/en/docs/historical-weather-api) para realizar os calculos e gerar resultados.
 
 ## Deploy
 
