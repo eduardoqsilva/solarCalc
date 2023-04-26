@@ -1,7 +1,6 @@
 import { SplashScreen } from "../../components/Splash";
-import { Container, ContainerForm, FormStyled, InputWrapperStyled, Ornaments } from "./coordinates.styled";
+import { Container, ContainerForm, FormStyled, Ornaments } from "./coordinates.styled";
 import { MapPinLine, Lightning } from "@phosphor-icons/react";
-import { colors } from "../../styles/variables";
 import { Button } from "../../components/Button";
 import { Logo } from "../../components/Logo";
 import { FormEvent, useState } from "react";
@@ -10,6 +9,7 @@ import { Loading } from "../../components/Loading";
 import illustration from '../../assets/svgs/illustrations/robotSun.svg'
 import decal from '../../assets/svgs/decal/balls.svg'
 import { useNavigate } from "react-router-dom";
+import { InputNumber } from "../../components/Inputs";
 
 export function CoordinatesForm() {
   const [isLoading, setIsLoading] = useState(false)
@@ -26,13 +26,6 @@ export function CoordinatesForm() {
     } else {
       return true
     }
-  }
-
-  function handleSetValues(key: string, value: string) {
-    setValues({
-      ...values,
-      [key]: value
-    })
   }
 
   function handleSetCoordinates() {
@@ -69,54 +62,38 @@ export function CoordinatesForm() {
           <FormStyled onSubmit={handleSubmit}>
             <h2>Preencha os dados</h2>
             <div className="inputs">
-              <InputWrapperStyled>
-                <label>Latitude:</label>
-                <MapPinLine
-                  size={28}
-                  color={colors.yellow}
-                  weight="regular"
-                />
-                <input
-                  type="number"
-                  placeholder="Example: -17.446"
-                  name="lat"
-                  step={0.0000001}
-                  onChange={(e) => handleSetValues('lat', e.currentTarget.value)}
-                  value={values.lat}
-                />
-              </InputWrapperStyled>
-              <InputWrapperStyled>
-                <label>Longitude:</label>
-                <MapPinLine
-                  size={28}
-                  color={colors.yellow}
-                  weight="regular"
-                />
-                <input
-                  type="number"
-                  placeholder="Example: -32.924"
-                  name="long"
-                  step={0.0000001}
-                  onChange={(e) => handleSetValues('long', e.currentTarget.value)}
-                  value={values.long}
-                />
-              </InputWrapperStyled>
-              <InputWrapperStyled>
-                <label>Consumo mensal:</label>
-                <Lightning
-                  size={28}
-                  color={colors.yellow}
-                  weight="regular"
-                />
-                <input
-                  type="number"
-                  placeholder="Example: 305kWh"
-                  name="cons"
-                  step={0.01}
-                  onChange={(e) => handleSetValues('cons', e.currentTarget.value)}
-                  value={values.cons}
-                />
-              </InputWrapperStyled>
+              <InputNumber 
+                icon={<MapPinLine/>}
+                label={'Latitude'}
+                placeholder={'Example: -19,123'}
+                name={'lat'}
+                characters={{min: -86, max: 86}}
+                getValue={[setValues, values, 'lat']}
+                isValue={values.lat}
+                requered
+              />
+
+              <InputNumber 
+                icon={<MapPinLine/>}
+                label={'Longitude'}
+                placeholder={'Example: -32,123'}
+                name={'Long'}
+                characters={{min: -86, max: 86}}
+                getValue={[setValues, values, 'long']}
+                isValue={values.long}
+                requered
+              />
+
+              <InputNumber 
+                icon={<Lightning/>}
+                label={'Consumo mensal médio'}
+                placeholder={'Example: -32.123'}
+                name={'cons'}
+                characters={{min: 150, max: 50000}}
+                getValue={[setValues, values, 'cons']}
+                isValue={values.cons}
+                requered
+              />
             </div>
             <div className="buttonsFormWrapper">
               <Button
