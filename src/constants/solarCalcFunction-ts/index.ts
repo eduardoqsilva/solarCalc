@@ -80,14 +80,14 @@ async function getData(latitude: number, longitude: number, consumo: number) {
 
             const mes = OpenMeteo.meses[i];
             
-            mediaIrradiacao.push(mes.mediaIrradiacao !== undefined ? mes.mediaIrradiacao : 0);
+            mediaIrradiacao.push(Math.round(mes.mediaIrradiacao !== undefined ? mes.mediaIrradiacao : 0));
             mediaTemp.push(mes.mediaTemperatura !== undefined ? mes.mediaTemperatura : 0);
             meses.push(mes.nome);
             const potCorrigida = painel.calcularPotenciaCorrigida(mes.mediaTemperatura !== undefined ? mes.mediaTemperatura : 0);
             const potSaidaInversor = painel.calculaPotSaidaInversor(potCorrigida, rendimentoInversor, qtd);
 
             const energiaGerada = painel.calculoEnergiaGeradaMensal(mes.dias, (mes.mediaIrradiacao !== undefined ? mes.mediaIrradiacao : 0) / 1000, 0.98, potSaidaInversor);
-            energiaGeradaMes.push(Math.ceil(energiaGerada)); 
+            energiaGeradaMes.push(Math.round(energiaGerada)); 
         }
 
         totalInfo.energiaGeradaArray = { meses: meses, dados: energiaGeradaMes };
