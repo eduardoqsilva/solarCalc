@@ -12,6 +12,9 @@ export function Loading({show, variant='01'}:LoadingType) {
 
   useEffect(() => {
     if(show) {
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 20)
       document.body.style.overflowY = 'hidden'
     }else {
       document.body.style.overflowY = ''
