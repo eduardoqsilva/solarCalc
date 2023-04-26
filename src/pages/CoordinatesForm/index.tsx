@@ -87,7 +87,7 @@ export function CoordinatesForm() {
               <InputNumber 
                 icon={<Lightning/>}
                 label={'Consumo mensal médio'}
-                placeholder={'Example: -32.123'}
+                placeholder={'Example: 300kWh'}
                 name={'cons'}
                 characters={{min: 150, max: 50000}}
                 getValue={[setValues, values, 'cons']}
