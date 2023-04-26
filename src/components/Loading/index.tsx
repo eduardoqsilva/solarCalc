@@ -1,6 +1,7 @@
 import { LoadingImgWrapper, WrapperLoading } from "./Loading.styled";
 import load from '../../assets/svgs/Loading/sun.svg'
 import energy from '../../assets/svgs/Loading/energy.svg'
+import { useEffect } from "react";
 
 interface LoadingType {
   show: boolean
@@ -8,6 +9,15 @@ interface LoadingType {
 }
 
 export function Loading({show, variant='01'}:LoadingType) {
+
+  useEffect(() => {
+    if(show) {
+      document.body.style.overflowY = 'hidden'
+    }else {
+      document.body.style.overflowY = ''
+    }
+  }, [show])
+
   return (
     <WrapperLoading show={show} variant={variant}>
       <LoadingImgWrapper variant={variant}>

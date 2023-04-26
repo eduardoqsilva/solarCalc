@@ -15,4 +15,11 @@ export const GlobalStyled = createGlobalStyle`
 
     background-color: ${colors.gray1};
   }
+
+  button {
+    cursor: pointer;
+    &:focus {
+      -webkit-tap-highlight-color: transparent;
+    }
+  }
 `

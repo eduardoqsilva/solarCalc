@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { colors } from "../../styles/variables";
 
 export const Container = styled.div`
   width: 100vw;
@@ -76,62 +75,5 @@ export const FormStyled = styled.form`
   & .inputs {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-  }
-`
-export const InputWrapperStyled = styled.div`
-  background-color: ${colors.gray2};
-  border-radius: 5px;
-  padding-left: 0.75rem;
-
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-
-  border: 2px solid transparent;
-  transition: all .1s ease-in;
-  margin-top: 1rem;
-
-  position: relative;
-
-  :focus-within {
-    border: 2px solid ${colors.yellow};
-  }
-  & label {
-    position: absolute;
-    top: -25px;
-    left: 0;
-    
-    font-size: 0.625rem;
-    color: ${colors.gray6}
-  }
-  & input[type=number] {
-    -moz-appearance: textfield;
-  }
-  & input {
-    width: 100%;
-    padding: 1rem 0;
-    background: transparent;
-    
-    border: none;
-    outline: none;
-
-    font-size: 1rem;
-    color: ${colors.white};
-    letter-spacing: 0.055em;
-
-    caret-color: ${colors.white};
-
-    &::-webkit-outer-spin-button,
-    ::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    &::placeholder {
-      font-style: normal;
-      font-weight: 400;
-      font-size: 1rem;
-    }
   }
 `

@@ -10,6 +10,7 @@ import getData from "../../constants/solarCalcfunctions";
 
 import up from '../../assets/svgs/decal/up.svg'
 import down from '../../assets/svgs/decal/down.svg'
+import { ShareButton } from "../../components/Share";
 
 interface dataType {
   mediaIrradiacaoAnual: string,
@@ -48,6 +49,14 @@ export function Home() {
       }
     }
   }
+  const PotF = () => {
+    if(data) {
+      if(typeof data.potSistema === 'number') {
+        const num = Number(data.potSistema)
+        return (num / 1000).toFixed(2)
+      }
+    }
+  }
 
   useEffect(() => {
     setIsLoading(true)
@@ -62,10 +71,6 @@ export function Home() {
     })
   }, [ lat, long, cons ])
 
-  useEffect(() => {
-    console.log(data)
-  }, [data])
-
   return (
     <>
       <Logo />
@@ -73,6 +78,7 @@ export function Home() {
         <img src={up} className="up" />
         <img src={down}className="down" />
       </OrnamentsStyled>
+      <ShareButton />
       <Loading show={isLoading} variant={"01"}/>
       <ContainerStyled>
         <ContentContainer>
@@ -81,32 +87,38 @@ export function Home() {
               <Card
                 title={'Potência do total sistema'}
                 icon={<Lightning/>}
-                value={[`${data ? data?.potSistema : ''}`, 'kW']}
+                value={[`${PotF()}`, 'kWp']}
+                tip={'Base para dimensionar o seu sistema solar.'}
               />
                <Card
                 title={'Geração anual'}
                 icon={<LightbulbFilament/>}
                 value={[`${data ? data?.energiaTotal : ''}`, 'kWh']}
+                tip={'Total de energia produzida em um ano.'}
               />
                <Card
                 title={'Área de instalação'}
                 icon={<BoundingBox/>}
                 value={[`${data ? data?.areaInstalacao : ''}`, 'm²']}
+                tip={'Área total em m² ocupada pelo sistema.'}
               />
                <Card
                 title={'Média irradiação anual'}
                 icon={<SunDim/>}
                 value={[`${data ? data?.mediaIrradiacaoAnual : ''}`, 'W/m²']}
+                tip={'Media anual da radiação global no local.'}
               />
                <Card
                 title={'Temperatura média anual'}
                 icon={<Thermometer/>}
                 value={[`${data ? data?.mediaTemperaturaAnual : ''}`, 'C°']}
+                tip={'Base para calcular o desempenho dos Modulos solares.'}
               />
                <Card
                 title={'Redução de CO2'}
                 icon={<PottedPlant/>}
                 value={[`${co2F()}`, 'TON']}
+                tip={'Redução em toneladas de CO² equivalente a energia produzida.'}
               />
             </CardsGrid>
             <BarChart 
