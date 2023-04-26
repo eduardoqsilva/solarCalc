@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors, fonts } from "../../styles/variables";
 
 export const Container = styled.div`
   width: 100vw;
@@ -77,3 +78,24 @@ export const FormStyled = styled.form`
     flex-direction: column;
   }
 `
+export const Credits = styled.h6 `
+  font-family: ${fonts.default};
+  font-weight: 600;
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  white-space: nowrap; 
+
+  & a {
+    text-decoration: none;
+    color: ${colors.yellow_light};
+    cursor: pointer;
+
+    &:visited {
+      color: ${colors.yellow};
+    }
+  }
+`
+

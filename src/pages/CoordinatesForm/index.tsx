@@ -1,5 +1,5 @@
 import { SplashScreen } from "../../components/Splash";
-import { Container, ContainerForm, FormStyled, Ornaments } from "./coordinates.styled";
+import { Container, ContainerForm, Credits, FormStyled, Ornaments } from "./coordinates.styled";
 import { MapPinLine, Lightning } from "@phosphor-icons/react";
 import { Button } from "../../components/Button";
 import { Logo } from "../../components/Logo";
@@ -8,7 +8,7 @@ import { GetLocation } from "../../constants/getLocation";
 import { Loading } from "../../components/Loading";
 import illustration from '../../assets/svgs/illustrations/robotSun.svg'
 import decal from '../../assets/svgs/decal/balls.svg'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { InputNumber } from "../../components/Inputs";
 
 export function CoordinatesForm() {
@@ -110,6 +110,9 @@ export function CoordinatesForm() {
             </div>
           </FormStyled>
         </ContainerForm>
+        <Credits>
+          Dados fornecidos por <Link to={'https://open-meteo.com/'} >Open-Meteo.com</Link>
+        </Credits>
       </Container>
     </>
   )
