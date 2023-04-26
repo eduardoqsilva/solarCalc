@@ -80,22 +80,28 @@ export const FormStyled = styled.form`
 `
 export const Credits = styled.h6 `
   font-family: ${fonts.default};
-  font-weight: 600;
+  font-weight: 400;
   position: fixed;
   bottom: 16px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
-  white-space: nowrap; 
+  white-space: nowrap;
+  opacity: 0.3;
+
+  &:hover {
+    opacity: 1;
+
+    & a{
+      color: ${colors.yellow};
+    }
+  }
 
   & a {
     text-decoration: none;
-    color: ${colors.yellow_light};
+    color: ${colors.gray7};
     cursor: pointer;
-
-    &:visited {
-      color: ${colors.yellow};
-    }
+    font-weight: 900;
   }
 `
 
