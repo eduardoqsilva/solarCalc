@@ -1,5 +1,34 @@
 class PainelSolar {
-    constructor(modelo, potPico, voc, vmpp, correnteNominal, isc, tempVoc, tempPmax, tempIsc, noct, comprimento, largura, area, areaInstalacao) {
+    modelo: string;
+    potPico: number;
+    voc: number;
+    vmpp: number;
+    correnteNominal: number;
+    isc: number;
+    tempVoc: number;
+    tempPmax: number;
+    tempIsc: number;
+    noct: number;
+    comprimento: number;
+    largura: number;
+    area: number;
+    areaInstalacao: number;
+    constructor(
+        modelo: string,
+        potPico: number,
+        voc: number,
+        vmpp: number,
+        correnteNominal: number,
+        isc: number,
+        tempVoc: number,
+        tempPmax: number,
+        tempIsc: number,
+        noct: number,
+        comprimento: number,
+        largura: number,
+        area: number,
+        areaInstalacao: number
+    ) {
         this.modelo = modelo;
         /*** Potência pico do módulo fotovoltáico(W) */
         this.potPico = potPico;
@@ -29,9 +58,10 @@ class PainelSolar {
         this.areaInstalacao = areaInstalacao;
     }
     /*** Potência Corrigida em função da temperatura */
-    calcularPotenciaCorrigida(temperatura, perdasDC) {
+    calcularPotenciaCorrigida(temperatura: number, perdasDC?: number): number {
         /*** Intervalo de valores de perdas  */
-        if (perdasDC >= 0 && perdasDC <= 1) {
+        if (perdasDC) {
+            perdasDC = perdasDC >= 0 && perdasDC <= 1 ? perdasDC : 0.10;
         } else {
             perdasDC = 0.10;
         }
@@ -41,24 +71,23 @@ class PainelSolar {
         const radiacaoSolar = 1000;
         /*** Temperatura da Celula fotovoltaica */
         const tempCelula = temperatura + radiacaoSolar * ((this.noct - 20) / 800 * 0.9);
-        //console.log(tempCelula)
         /*** Potência Corrigida */
         const potCorrigida = this.potPico * (1 - (this.tempPmax / 100 * (-1)) * (tempCelula - 25));
-        return (potCorrigida * (1 - perdas)).toFixed(3);
+        return parseFloat((potCorrigida * (1 - perdas)).toFixed(3));
     }
 
 
-    calculaPotSaidaInversor(potCorrigida, rendimentoInversor, qtdPaineis) {
+    calculaPotSaidaInversor(potCorrigida: number, rendimentoInversor: number, qtdPaineis: number): number {
         /*** Potência na saída do inversor considerando o rendimento. Para 1 painel (USADA PARA CALCULAR A QTD DE PAINÉIS) (W) */
-        const potRendimentoInversor = (potCorrigida * (rendimentoInversor / 100)).toFixed(3);
+        const potRendimentoInversor: number = +(potCorrigida * (rendimentoInversor / 100)).toFixed(3);
         /*** Potência gerada pela quantidade escolhida de painéis (na saída do inversor considerando perdas) (kW) */
-        const potTotal = qtdPaineis * potRendimentoInversor / 1000;
+        const potTotal: number = qtdPaineis * potRendimentoInversor / 1000;
         return potTotal;
     }
 
-    calculoEnergiaGeradaMensal (diasMes,irradiacaoSolar,fatorDeCorrecao,potenciaTotalSistema){
-        const f = fatorDeCorrecao || 0.98;
-        return (diasMes*irradiacaoSolar*f*potenciaTotalSistema).toFixed(3);
+    calculoEnergiaGeradaMensal(diasMes: number, irradiacaoSolar: number, fatorDeCorrecao?: number, potenciaTotalSistema?: number): number {
+        const f: number = fatorDeCorrecao || 0.98;
+        return +(diasMes * irradiacaoSolar * f * (potenciaTotalSistema || 0)).toFixed(3);
     }
 
 }
