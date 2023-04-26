@@ -6,7 +6,7 @@ import Painel from './solarPanel';
 const painel = Painel[1];
 
 
-interface TotalInfo {
+export interface TotalInfo {
     mediaIrradiacaoAnual: number;
     mediaPotCorrigida: number;
     mediaTemperaturaAnual: number;
@@ -86,9 +86,8 @@ async function getData(latitude: number, longitude: number, consumo: number) {
             const potCorrigida = painel.calcularPotenciaCorrigida(mes.mediaTemperatura !== undefined ? mes.mediaTemperatura : 0);
             const potSaidaInversor = painel.calculaPotSaidaInversor(potCorrigida, rendimentoInversor, qtd);
 
-            const energiaGerada = painel.calculoEnergiaGeradaMensal(mes.dias, mes.mediaIrradiacao !== undefined ? mes.mediaIrradiacao : 0 / 1000, 0.98, potSaidaInversor);
-            energiaGeradaMes.push(energiaGerada);
-            
+            const energiaGerada = painel.calculoEnergiaGeradaMensal(mes.dias, (mes.mediaIrradiacao !== undefined ? mes.mediaIrradiacao : 0) / 1000, 0.98, potSaidaInversor);
+            energiaGeradaMes.push(Math.ceil(energiaGerada)); 
         }
 
         totalInfo.energiaGeradaArray = { meses: meses, dados: energiaGeradaMes };
